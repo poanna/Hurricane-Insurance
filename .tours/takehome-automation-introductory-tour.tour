@@ -1,0 +1,60 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Takehome Automation Introductory Tour!",
+  "steps": [
+    {
+      "title": "Introduction",
+      "description": "This code tour will be a brief introduction into how we write our quality assurance automations in the QA department here at Sure!\n\nThese topics will be covered again when you're introduced to the graduated (non-test) repository, so don't fret if some of this seems odd at first go. We're also here to help, so if you have any questions absolutely ask!\n\nNow let's get this show on the road!"
+    },
+    {
+      "file": "cypress.takehome.json",
+      "description": "Here is the environment file for the vertical we're dealing with (hurricane insurance in this case). Each vertical will have its own environmental file since there are specific attributes needed for each vertical. So this in then essentially the `cypress.json` file for a product and as such we don't use the base `cypress.json` file. ",
+      "line": 9
+    },
+    {
+      "file": "cypress.takehome.json",
+      "description": "This `\"baseUrl\"` comes in handy in spec files (user flows) as we can simply say `cy.visit('/')` to target this `\"baseUrl\"` value. This is one of the reasons we have specific environment files for each product, because each product targets a different website!",
+      "line": 3
+    },
+    {
+      "file": "cypress.takehome.json",
+      "description": "The `\"integrationFolder\"` is where we house our `spec`/automated user flow files. `.spec.js` files outside of this target folder will not show up when you open cypress.",
+      "line": 4
+    },
+    {
+      "file": "cypress.takehome.json",
+      "description": "Automations that are to be opened and ran in cypress *must* follow the format of ending in `.spec.js` so like `smokeTest.spec.js`",
+      "line": 5
+    },
+    {
+      "file": "package.json",
+      "description": "These two scripts are the most important here. They're run in your console being preceeded with the `yarn` command (e.g. `yarn cy:open-takehome`). `cy:open-takehome` will open cypress using the correct  environment file (with the targeted `integrationFolder`, `environment`, `baseUrl`, etc...). Using `cy:open` will open cypress, but it will not have the correct values to run the `spec` files.",
+      "line": 31
+    },
+    {
+      "file": "cypress/integration/3-takehome/smokeTest.spec.js",
+      "description": "These are the page object imports we are using for this test. These files house the relevant pages' selectors so we only need to update them in one place should they ever change. \n\nLet's take a look at one of these files now.",
+      "line": 1
+    },
+    {
+      "file": "cypress/support/takehome-POMs/building-materials.js",
+      "description": "This selector uses the custom cypress command `.getBySel()`. This command is a shorthand of `cy.get(`data-testid=\"${string}\"`)` where `data-testid` is the static selector attribute that we try to use on everything that can be interacted with or contains information on the web application. If there isn't a `data-testid` attribute, we can use the `<a>` tag, `href`, `<button>` or such the like while we put in a request for a `data-testid` to be added!",
+      "line": 6
+    },
+    {
+      "file": "cypress/support/commands.js",
+      "description": "And here is that custom command we just referenced. The `commands.js` file we're in is also the main file where we add custom cypress commands!",
+      "line": 29
+    },
+    {
+      "file": "cypress/integration/3-takehome/smokeTest.spec.js",
+      "description": "Going back to the spec file, we can see the implementation of `describe()`, `context()`, and `it()` blocks. We use `describe()` to introduce the user story being automated in this `spec` file. `context()` is used as our \"Given\" cucumber statement. And each `it()` block or \"test\" is used as the \"When,\" \"Then,\" and \"And\" in Gherkin syntax. The test blocks (`it()`) should be broken down into logical steps that can be retried as a block (the entire single `it()` block a failure occurs in) if the test (`it()`) fails. You can use your best judgement here on the size of the test, but usually it's used to test a singular page. ",
+      "line": 6
+    },
+    {
+      "file": "cypress/integration/3-takehome/smokeTest.spec.js",
+      "description": "And our last stop on our tour is the assertions listed here. As you can see the assertions live inside of the second `.then()` block. This is because `standardPrice` and `completePrice` only are defined inside the `.then()` blocks (with `standardPrice` being defined in both, but `completePrice` only being defined in the second). This is due to the way Cypress queues commands. It's probably a bit confusing now, but once you get the hang of it, it's pretty easy to remember.",
+      "line": 43
+    }
+  ]
+}
